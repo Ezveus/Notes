@@ -8,5 +8,7 @@
     <string name="text_label">Text :</string>
     <string name="button_title">View stored notes</string>
     <string name="store_note_bt_label">Store note</string>
+    <string name="title_activity_view_notes">ViewNotesActivity</string>
+    <string name="no_notes_tw">No notes</string>
 
 </resources>
