@@ -51,19 +51,33 @@ class DatabaseHelper extends SQLiteOpenHelper {
 	public void onOpen(SQLiteDatabase db) {
 	}
 
-	public void add_note(String title, String body) {
-		ContentValues cv = new ContentValues();
-		
-		cv.put(FIELD_TITLE, title);
-		cv.put(FIELD_TEXT, body);
-		db.insert(TABLE_NAME, FIELD_TITLE, cv);
+	public boolean add_note(String title, String body) {
+		if (validates_presence_of(new String[] { title, body })) {
+			ContentValues cv = new ContentValues();
+			
+			cv.put(FIELD_TITLE, title);
+			cv.put(FIELD_TEXT, body);
+			db.insert(TABLE_NAME, FIELD_TITLE, cv);
+			return true;
+		}
+		return false;
 	}
 	
-	void add_note(String title, String body, Activity activity) {
-		add_note(title, body);
+	private boolean validates_presence_of(String[] strings) {
+		for (String s : strings) {
+			if (s == null || s.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	boolean add_note(String title, String body, Activity activity) {
+		boolean ret = add_note(title, body);
 		if (activity != null) {
 			Toast.makeText(activity, "Adding a note", Toast.LENGTH_SHORT).show();
 		}
+		return ret;
 	}
 	
 	List<String[]> get_all_notes() {

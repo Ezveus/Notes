@@ -39,14 +39,17 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onViewStored(View v) {
-		Toast.makeText(this, "Viewing Stored Notes", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, ViewNotesActivity.class);
 		startActivity(intent);
 	}
 	
 	public void onStoreNote(View v) {
-		db.add_note(title_edit.getText().toString(), text_edit.getText().toString(), this);
-		title_edit.setText("");
-		text_edit.setText("");
+		if (db.add_note(title_edit.getText().toString(), text_edit.getText().toString())) {
+			title_edit.setText("");
+			text_edit.setText("");
+			Toast.makeText(this, R.string.note_added, Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(this, R.string.validation_error, Toast.LENGTH_SHORT).show();
+		}
 	}
 }

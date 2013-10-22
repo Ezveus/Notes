@@ -10,5 +10,7 @@
     <string name="store_note_bt_label">Store note</string>
     <string name="title_activity_view_notes">ViewNotesActivity</string>
     <string name="no_notes_tw">No notes</string>
+    <string name="note_added">The note was added</string>
+    <string name="validation_error">A note must have a title and a text</string>
 
 </resources>
