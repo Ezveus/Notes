@@ -14,11 +14,11 @@ import com.ezveus.notes.DatabaseHelper;
 
 @SuppressWarnings("unused") // TODO : Remove this one
 public class MainActivity extends Activity {
-	EditText title_edit;
-	EditText text_edit;
-	Button view_store_button;
-	Button store_note_button;
-	DatabaseHelper db;
+	private EditText title_edit;
+	private EditText text_edit;
+	private Button view_store_button;
+	private Button store_note_button;
+	private DatabaseHelper db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
