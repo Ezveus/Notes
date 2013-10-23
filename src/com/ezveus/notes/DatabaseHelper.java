@@ -1,5 +1,6 @@
 package com.ezveus.notes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,11 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException; // TODO : Catch those ones
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.widget.Toast;
+// TODO : Catch those ones
 
 @SuppressWarnings("unused") // TODO: Remove this one
 class DatabaseHelper extends SQLiteOpenHelper {
@@ -52,7 +54,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public boolean add_note(String title, String body) {
-		if (validates_presence_of(new String[] { title, body })) {
+		if (validates_presence_of(new String[] { title, body }) && validates_uniqueness_of(new String[] { title })) {
 			ContentValues cv = new ContentValues();
 			
 			cv.put(FIELD_TITLE, title);
@@ -66,6 +68,17 @@ class DatabaseHelper extends SQLiteOpenHelper {
 	private boolean validates_presence_of(String[] strings) {
 		for (String s : strings) {
 			if (s == null || s.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean validates_uniqueness_of(String[] strings) {
+		List<String> notes = get_all_notes_titles();
+
+		for (String s : strings) {
+			if (notes.contains(s)) {
 				return false;
 			}
 		}
@@ -92,7 +105,28 @@ class DatabaseHelper extends SQLiteOpenHelper {
 		return notes;
 	}
 	
+	List<String> get_all_notes_titles() {
+		List<String> notes = new ArrayList<String>();
+		Cursor cursor = db.query(TABLE_NAME, new String[] { FIELD_TITLE }, null, null, null, null, null);
+		
+		if (cursor.moveToFirst()) {
+			do {
+				notes.add(cursor.getString(0));
+			} while (cursor.moveToNext());
+		}
+		return notes;
+	}
+	
 	static String[] getFields() {
 		return new String[]{ FIELD_TITLE, FIELD_TEXT };
+	}
+
+	public String get_note(String title) {
+		Cursor cursor = db.query(TABLE_NAME, new String[] { FIELD_TEXT }, FIELD_TITLE + " = '" + title + "'", null, null, null, null);
+		System.out.println("Number of results : " + cursor.getCount());
+		if (cursor.moveToFirst()) {
+			return cursor.getString(0);
+		}
+		return null;
 	}
 }

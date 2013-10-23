@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Note</string>
+    <string name="app_name">Notes</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_label">Title :</string>
     <string name="text_label">Text :</string>
     <string name="button_title">View stored notes</string>
     <string name="store_note_bt_label">Store note</string>
-    <string name="title_activity_view_notes">ViewNotesActivity</string>
+    <string name="title_activity_view_notes">Notes - View all notes</string>
     <string name="no_notes_tw">No notes</string>
     <string name="note_added">The note was added</string>
-    <string name="validation_error">A note must have a title and a text</string>
+    <string name="validation_error">Title and text should be given and title should be unique</string>
+    <string name="title_activity_view_note">Notes - View a note</string>
 
 </resources>
