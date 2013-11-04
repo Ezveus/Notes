@@ -10,6 +10,17 @@ An android application allowing to store notes in a local database.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+## Build (easily) and deploy
+
+	$ android update project -p .	# Create the local.properties with the path to the SDK
+	$ ant debug						# Build a debug version of the project
+	# If you only have one device wired to your computer
+	$ ant installd					# Install on the default device
+	# else if two or more devices are wired
+	$ adb -s <DEVICE_ID> install ./bin/Notes-debug.apk
+
+Then you just have to launch Notes on your device.
+
 ## Ideas
 
 - Store on a distant database
